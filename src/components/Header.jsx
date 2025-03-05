@@ -10,7 +10,7 @@ function Header() {
             <div className="logo flex flex-col items-center">
                 <img className="w-[500px] border" src={logo} alt="Logo" />
                 <h2 className='text-gray-400 text-center mt-2 '>Journalism Without Fear or Favour</h2>
-                <p className=' text-gray-400'> 
+                <p className=' text-gray-400'>
                     {moment().format("dddd, MMMM Do YYYY")}
 
                 </p>

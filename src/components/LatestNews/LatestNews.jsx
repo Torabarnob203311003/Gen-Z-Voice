@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 function LatestNews() {
     return (
         <div className="flex justify-center items-center w-full px-4 ">
-            <div className=" bg-gray-100 flex flex-col sm:flex-row items-center gap-3 p-4 rounded-lg max-w-6xl w-full ">
-                <p className="text-xl bg-[#D72850] text-white px-4 py-2 rounded-md">Latest</p>
+            <div className="  flex flex-col sm:flex-row items-center gap-0.5 p-4 rounded-lg max-w-6xl w-full ">
+                <p className="text-xl bg-[#D72850] text-white px-4 py-2 rounded-base ">Latest</p>
 
                 <Marquee pauseOnHover
-                    className="w-full"
+                    className="w-full bg-gray-100 px-4 py-2"
                     speed={50}
                     pauseOnHover={true}
                 >
@@ -21,7 +21,7 @@ function LatestNews() {
                     </div>
                 </Marquee>
 
-                
+
             </div>
         </div>
     );

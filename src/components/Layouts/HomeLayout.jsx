@@ -3,6 +3,7 @@ import Header from '../Header'
 import LatestNews from '../LatestNews/LatestNews'
 import LeftBar from '../LayoutComponents/LeftNavbar/LeftBar'
 import RightBar from '../LayoutComponents/RightNavbar/RightBar'
+import News from '../Main/News'
 
 
 import Navbar from '../Navbar/Navbar'
@@ -28,7 +29,7 @@ function HomeLayout() {
 
           <LeftBar />
         </aside>
-        <section className=' main col-span-6'> main content</section>
+        <section className=' main col-span-6'> <News /></section>
         <aside className=' right  col-span-3'><RightBar />  </aside>
 
 

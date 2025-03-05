@@ -10,7 +10,7 @@ function LatestNews() {
 
                 <Marquee pauseOnHover
                     className="w-full bg-gray-100 px-4 py-2"
-                    speed={50}
+                    speed={120}
                     pauseOnHover={true}
                 >
                     <div className="flex gap-10 text-xl font-medium">

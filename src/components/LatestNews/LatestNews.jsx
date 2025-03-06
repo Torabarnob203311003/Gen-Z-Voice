@@ -21,7 +21,7 @@ function LatestNews() {
                         </Link>
                         <Link to="/news" className="transition duration-300">
                             আসছে <span className="text-red-600">ফাগুন</span>,
-                            আমি হবো <span className="text-green-600">দ্বিগুণ</span>
+                            আমরা হবো <span className="text-green-600">দ্বিগুণ</span>
                         </Link>
                     </div>
                 </Marquee>

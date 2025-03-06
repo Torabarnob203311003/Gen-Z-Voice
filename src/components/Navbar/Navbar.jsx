@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Links } from 'react-router-dom'
 import { FaCircleUser } from "react-icons/fa6";
 
 
@@ -18,7 +18,7 @@ function Navbar() {
           <FaCircleUser size='38' />
 
         </div>
-        <button className=" bg-black text-gray-200 px-3 py-2 rounded-lg">LogIn</button>
+        <Link to='/auth/login' className=" bg-black text-gray-200 px-3 py-2 rounded-lg">LogIn</Link>
 
       </div>
 

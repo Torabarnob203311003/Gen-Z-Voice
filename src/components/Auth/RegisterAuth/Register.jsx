@@ -2,31 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Register() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const { name, email, password, confirmPassword } = formData;
-        if (password !== confirmPassword) {
-            alert("Passwords don't match!");
-            return;
-        }
-        // Handle the form submission logic, like sending data to a server
-        console.log("Form submitted", formData);
-    };
 
     return (
         <div className="min-h-screen flex justify-center items-start bg-gray-100 px-7 py-44">
@@ -35,14 +10,14 @@ function Register() {
                     Create Your Account
                 </h2>
 
-                <form onSubmit={handleSubmit}>
+                <form >
                     <div className="mb-4">
                         <label className="block text-gray-700 font-medium mb-1">Name</label>
                         <input
                             type="text"
                             name="name"
-                            value={formData.name}
-                            onChange={handleChange}
+
+
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none text-sm sm:text-base"
                             placeholder="Enter your name"
                             required
@@ -54,10 +29,21 @@ function Register() {
                         <input
                             type="email"
                             name="email"
-                            value={formData.email}
-                            onChange={handleChange}
+
+
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none text-sm sm:text-base"
                             placeholder="Enter your email"
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-700 font-medium mb-1">Photo URL</label>
+                        <input
+                            type="photo"
+                            name="photo"
+
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none text-sm sm:text-base"
+                            placeholder="Enter Photo URL"
                             required
                         />
                     </div>
@@ -67,8 +53,7 @@ function Register() {
                         <input
                             type="password"
                             name="password"
-                            value={formData.password}
-                            onChange={handleChange}
+
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none text-sm sm:text-base"
                             placeholder="Enter your password"
                             required
@@ -80,8 +65,7 @@ function Register() {
                         <input
                             type="password"
                             name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
+
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none text-sm sm:text-base"
                             placeholder="Confirm your password"
                             required

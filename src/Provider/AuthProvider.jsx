@@ -7,16 +7,17 @@ const auth = getAuth(app);
 function AuthProvider({ children }) {
 
     const [user, setUser] = useState(null);
-    const authInfo = {
-
-        user, setUser, createNewUser,
-    };
-
     const createNewUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
 
 
     }
+    const authInfo = {
+
+        user, setUser, createNewUser,
+    };
+
+
 
     return (
         <AuthContext.Provider value={authInfo}>{children} </AuthContext.Provider>

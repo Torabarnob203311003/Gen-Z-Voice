@@ -1,17 +1,41 @@
-import React, { useState } from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
 function Register() {
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Fixed spelling error
-        const formData = new FormData(e.target);
-        console.log(Object.fromEntries(formData));
-        createNewUser = (email, password)
+    const { createNewUser } = useContext(AuthContext);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const name = formData.get("name");
+        const email = formData.get("email");
+        const photo = formData.get("photo");
+        const password = formData.get("password");
+        const confirmPassword = formData.get("confirmPassword");
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        // Call createNewUser function from context
+        if (createNewUser) {
+            createNewUser(email, password)
+                .then((result) => {
+                    const user = result.user;
+                    console.log("User created:", user);
+                    alert("Account created successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error creating user:", error.code, error.message);
+                    alert(`Error: ${error.message}`);
+                });
+        } else {
+            console.error("createNewUser is not available. Check AuthProvider.");
+        }
     };
-    const { createNewUser } = useContext(AuthContext)
 
     return (
         <div className="min-h-screen flex justify-center items-start bg-gray-100 px-7 py-44">
@@ -46,7 +70,7 @@ function Register() {
                     <div className="mb-4">
                         <label className="block text-gray-700 font-medium mb-1">Photo URL</label>
                         <input
-                            type="text" // Fixed incorrect input type
+                            type="text"
                             name="photo"
                             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-500 focus:outline-none text-sm sm:text-base"
                             placeholder="Enter Photo URL"

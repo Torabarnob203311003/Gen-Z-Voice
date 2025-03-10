@@ -25,6 +25,8 @@ function AuthProvider({ children }) {
         return signInWithEmailAndPassword(auth, email, password);
     };
 
+
+
     // Sign out the current user
     const logOut = () => {
         return signOut(auth);
@@ -47,6 +49,7 @@ function AuthProvider({ children }) {
 
         return () => unSubscribe(); // Cleanup subscription on unmount
     }, []);
+
 
     // Auth context information to be shared globally
     const authInfo = {

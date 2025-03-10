@@ -27,6 +27,7 @@ function Register() {
                     const user = result.user;
                     console.log("User created:", user);
                     alert("Account created successfully!");
+                    e.target.reset(); // Reset the form after successful registration
                 })
                 .catch((error) => {
                     console.error("Error creating user:", error.code, error.message);
@@ -36,6 +37,7 @@ function Register() {
             console.error("createNewUser is not available. Check AuthProvider.");
         }
     };
+
 
     return (
         <div className="min-h-screen flex justify-center items-start bg-gray-100 px-7 py-44">

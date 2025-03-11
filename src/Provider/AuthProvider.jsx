@@ -13,7 +13,9 @@ const auth = getAuth(app);
 
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true); // Track loading state
+    const [loading, setLoading] = useState(true);
+    console.log(loading, user)
+    // Track loading state
 
     // Create a new user with email and password
     const createNewUser = (email, password) => {
@@ -38,7 +40,8 @@ function AuthProvider({ children }) {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                setUser(currentUser); // User is signed in
+                setUser(currentUser);
+                setLoading(false);// User is signed in
                 console.log("User signed in:", currentUser.uid);
             } else {
                 setUser(null); // User is signed out

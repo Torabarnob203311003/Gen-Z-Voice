@@ -7,6 +7,7 @@ import Register from '../components/Auth/RegisterAuth/Register';
 import HomeLayout from '../components/Layouts/HomeLayout';
 import News from '../components/Main/News';
 import NewsDetails from '../components/Main/NewsDetails';
+import PrivateRoutes from './PrivateRoutes/PrivateRoutes';
 
 const router = createBrowserRouter([
         {
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
         },
         {
                 path: '/news/:id',
-                element: <NewsDetails />,
+                element: <PrivateRoutes>
+
+                        <NewsDetails></NewsDetails>
+                </PrivateRoutes>
+                ,
                 loader: async ({ params }) => {
                         try {
                                 const response = await fetch(`https://openapi.programming-hero.com/api/news/${params.id}`);
@@ -41,7 +46,7 @@ const router = createBrowserRouter([
                 },
                 id: 'news-detail', // Assign a loader ID
         },
-        ,
+
         {
                 path: '/auth',
                 element: <Auth />,

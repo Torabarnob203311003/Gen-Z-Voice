@@ -8,7 +8,7 @@ import RightBar from '../LayoutComponents/RightNavbar/RightBar';
 function NewsDetails() {
     const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
-    console.log(location);
+    console.log(location)
     const { user } = useContext(AuthContext); // Check if the user is logged in
     const data = useRouteLoaderData('news-detail');
     const navigate = useNavigate();  // Hook to handle navigation

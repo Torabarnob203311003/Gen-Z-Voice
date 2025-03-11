@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
 
 function LogIn() {
-    const { signInUser, setUser } = useContext(AuthContext);
+    const { signInUser, setUser, error } = useContext(AuthContext); // Destructure error
     const location = useLocation();
     const navigate = useNavigate(); // Get location object
 
@@ -39,6 +39,14 @@ function LogIn() {
                 <h2 className="text-xl sm:text-2xl font-bold text-center text-gray-800 mb-6">
                     Login Your Account
                 </h2>
+
+                {/* Display error message if there is an error */}
+                {error && (
+                    <div className="bg-red-50 border-l-4 border-red-400 text-red-800 p-4 mb-6 rounded-lg">
+                        <p className="font-semibold">Login Failed</p>
+                        <p className="text-sm">{error}</p>
+                    </div>
+                )}
 
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">

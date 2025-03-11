@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaShare, FaSave } from 'react-icons/fa'; // Import React Icons
 import { Link } from 'react-router-dom';
+import Loading from '../../routes/Loader/loading';
 
 // List of profile pictures
 const profilePictures = [
@@ -106,7 +107,7 @@ const News = () => {
             });
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <Loading></Loading>;
     if (error) return <div>Error: {error}</div>;
 
     return (

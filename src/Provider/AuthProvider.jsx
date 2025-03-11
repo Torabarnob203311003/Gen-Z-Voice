@@ -14,7 +14,7 @@ const auth = getAuth(app);
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    console.log(loading, user)
+
     // Track loading state
 
     // Create a new user with email and password
@@ -27,25 +27,18 @@ function AuthProvider({ children }) {
         return signInWithEmailAndPassword(auth, email, password);
     };
 
-
-
     // Sign out the current user
     const logOut = () => {
         return signOut(auth);
     };
-
-
 
     // Observer pattern to detect authentication state changes
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 setUser(currentUser);
-                setLoading(false);// User is signed in
-                console.log("User signed in:", currentUser.uid);
             } else {
                 setUser(null); // User is signed out
-                console.log("User signed out");
             }
             setLoading(false); // Set loading to false after user state is determined
         });
@@ -53,10 +46,10 @@ function AuthProvider({ children }) {
         return () => unSubscribe(); // Cleanup subscription on unmount
     }, []);
 
-
     // Auth context information to be shared globally
     const authInfo = {
         user,
+        setUser,  // Pass setUser here
         createNewUser,
         signInUser,
         logOut,

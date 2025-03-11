@@ -1,16 +1,41 @@
-import React from 'react'
-import { Link, useRouteLoaderData, useNavigate } from 'react-router-dom'
-import Header from '../Header'
-import RightBar from '../LayoutComponents/RightNavbar/RightBar'
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useRouteLoaderData, useNavigate, useLocation } from 'react-router-dom';
+import { AuthContext } from "../../Provider/AuthProvider";
+import Loading from '../../routes/Loader/loading';
+import Header from '../Header';
+import RightBar from '../LayoutComponents/RightNavbar/RightBar';
 
 function NewsDetails() {
+    const [isLoading, setIsLoading] = useState(true);
+    const location = useLocation();
+    console.log(location);
+    const { user } = useContext(AuthContext); // Check if the user is logged in
     const data = useRouteLoaderData('news-detail');
     const navigate = useNavigate();  // Hook to handle navigation
+
+    useEffect(() => {
+        if (data) {
+            setIsLoading(false);
+        }
+    }, [data]);
 
     // Navigate back to the previous page
     const handleBackToCategory = () => {
         navigate(-1);  // This takes the user back to the previous page in the browser's history stack
     };
+
+    // Handle the "Read More" click
+    const handleReadMore = () => {
+        if (!user) {
+            navigate('/auth/login');  // Redirect to login if user is not logged in
+        } else {
+            navigate('/news-details'); // If logged in, stay on the NewsDetails page
+        }
+    };
+
+    if (isLoading) {
+        return <Loading></Loading>; // Show loading spinner while data is being loaded
+    }
 
     return (
         <div>
@@ -28,7 +53,6 @@ function NewsDetails() {
                         >
                             Breaking News
                         </Link>
-                        {/* Add more categories here */}
                     </div>
                 </section>
 
@@ -50,6 +74,12 @@ function NewsDetails() {
                             <p className="text-lg mb-4">{data?.details}</p>
                             <div className="card-actions mt-4">
                                 <button
+                                    onClick={handleReadMore}  // Call handleReadMore function
+                                    className="btn bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                >
+                                    Read More
+                                </button>
+                                <button
                                     onClick={handleBackToCategory}  // Call the function on click
                                     className="btn bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 >
@@ -70,7 +100,7 @@ function NewsDetails() {
                 </aside>
             </main>
         </div>
-    )
+    );
 }
 
-export default NewsDetails
+export default NewsDetails;

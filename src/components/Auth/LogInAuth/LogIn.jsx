@@ -1,24 +1,30 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../Provider/AuthProvider';
 
 function LogIn() {
     const { signInUser, setUser } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate(); // Get location object
 
     const handleLogin = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const email = formData.get("email");
         const password = formData.get("password");
-        console.log(email, password)
+        console.log(email, password);
 
         // Call signInUser function from context
         signInUser(email, password)
             .then((result) => {
                 const user = result.user;
                 setUser(user);
+
+                // Navigate to the desired location or fallback to home page
+                const from = location.state?.from || "/"; // Get the previous page or fallback to home
+                navigate(from); // Redirect to the previous page or home page
+
                 console.log("User logged in:", user);
-                alert("Login successful!");
                 e.target.reset(); // Reset the form after successful login
             })
             .catch((error) => {

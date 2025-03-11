@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaShare, FaSave } from 'react-icons/fa'; // Import React Icons
+import { Link } from 'react-router-dom';
 
 // List of profile pictures
 const profilePictures = [
@@ -29,7 +30,7 @@ const shuffleArray = (array) => {
     return array;
 };
 
-const NewsCard = ({ title, details, image_url, rating = { number: 4.9 }, shares = { number: 499 }, author = { name: "Anonymous", avatar: profilePictures[0] }, date = randomDates[0] }) => {
+const NewsCard = ({ news_id, title, details, image_url, rating = { number: 4.9 }, shares = { number: 499 }, author = { name: "Anonymous", avatar: profilePictures[0] }, date = randomDates[0] }) => {
     // Extract the number from rating and shares objects
     const ratingValue = rating.number;
     const sharesValue = shares.number;
@@ -52,10 +53,14 @@ const NewsCard = ({ title, details, image_url, rating = { number: 4.9 }, shares 
             <p style={{ margin: '0 0 12px 0' }}>{details}</p>
 
             {/* Read More Link */}
-            <a href="#" style={{ color: '#007BFF', textDecoration: 'none', display: 'block', marginBottom: '12px' }}>Read More</a>
+            <Link to={`/news/${news_id}`} style={{ color: '#007BFF', textDecoration: 'none', display: 'block', marginBottom: '12px' }}>
+                Read More
+            </Link>
 
             {/* News Image */}
-            <img src={image_url} alt={title} style={{ width: '100%', borderRadius: '8px', marginBottom: '12px' }} />
+            {image_url && (
+                <img src={image_url} alt={title} style={{ width: '100%', borderRadius: '8px', marginBottom: '12px' }} />
+            )}
 
             {/* Rating and Shares */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -64,7 +69,7 @@ const NewsCard = ({ title, details, image_url, rating = { number: 4.9 }, shares 
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <span style={{ marginRight: '8px', cursor: 'pointer' }}><FaShare /> {sharesValue}</span>
-                    <span style={{ cursor: 'pointer' }}><FaSave /></span> {/* Save Icon */}
+                    <span style={{ cursor: 'pointer' }}><FaSave /></span>
                 </div>
             </div>
         </div>
@@ -111,6 +116,7 @@ const News = () => {
                 {newsData.map((newsItem) => (
                     <NewsCard
                         key={newsItem._id}
+                        news_id={newsItem._id} // Pass the news ID correctly
                         title={newsItem.title}
                         details={newsItem.details}
                         image_url={newsItem.image_url}

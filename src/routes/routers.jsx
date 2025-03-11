@@ -6,6 +6,7 @@ import Register from '../components/Auth/RegisterAuth/Register';
 
 import HomeLayout from '../components/Layouts/HomeLayout';
 import News from '../components/Main/News';
+import NewsDetails from '../components/Main/NewsDetails';
 
 const router = createBrowserRouter([
         {
@@ -14,39 +15,47 @@ const router = createBrowserRouter([
                 children: [
                         {
                                 path: '/', // Default path
-                                element: <Navigate to="/categories/1" />, // Redirect to /categories/0
+                                element: <Navigate to="/categories/1" />, // Redirect to /categories/1
                         },
                         {
-                                path: '/categories/:id',  // Keep the same path
+                                path: '/categories/:id',
                                 element: <News />,
-
-                                // Log to verify
-
-
-
-
                         },
                 ],
         },
         {
-                path: '/news',
-                element: <h1>News updated</h1>,
+                path: '/news/:id',
+                element: <NewsDetails />,
+                loader: async ({ params }) => {
+                        try {
+                                const response = await fetch(`https://openapi.programming-hero.com/api/news/${params.id}`);
+                                if (!response.ok) {
+                                        throw new Error('Failed to fetch news details');
+                                }
+                                const data = await response.json();
+                                return data.data[0]; // Return the first news object from the API response
+                        } catch (error) {
+                                console.error('Error loading news details:', error);
+                                return { error: 'Unable to load news details' };
+                        }
+                },
+                id: 'news-detail', // Assign a loader ID
         },
+        ,
         {
                 path: '/auth',
-                element: <Auth></Auth>,
+                element: <Auth />,
                 children: [
                         {
-                                path: '/auth/login', // Correct path for login
-                                element: <LogIn />
+                                path: 'login',
+                                element: <LogIn />,
                         },
                         {
-                                path: '/auth/register', // Correct path for register
-                                element: <Register />
-                        }
-                ]
+                                path: 'register',
+                                element: <Register />,
+                        },
+                ],
         },
-
         {
                 path: '*',
                 element: <h1>Page not found</h1>,

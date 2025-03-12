@@ -9,7 +9,6 @@ function Navbar() {
   // Handle logout functionality
   const handleLogOut = () => {
     logOut()
-
       .catch((error) => {
         console.error("Error logging out:", error.message);
         alert("Failed to log out!");
@@ -28,7 +27,15 @@ function Navbar() {
       </div>
       <div className='login flex gap-2 items-center'>
         <div>
-          <FaCircleUser size='38' />
+          {user && user.photoURL ? (
+            <img
+              src={user.photoURL}
+              alt="User"
+              className="w-10 h-10 rounded-full border-2 border-gray-300"
+            />
+          ) : (
+            <FaCircleUser size='38' />
+          )}
         </div>
         {user && user.email ? (
           <button onClick={handleLogOut} className="bg-black text-gray-200 px-3 py-2 rounded-lg">
